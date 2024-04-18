@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/file_upload.js"></script>
+    <script src="/js/opencv.js"></script>
     <title>Dashboard</title>
 </head>
 <body>
@@ -23,11 +24,11 @@
             <div id="file_upload">
                 <figure>
                     <img src="/images/cloud_upload.svg" alt="Cloud upload icon">
-                    <input id="browse_file" type="button" value="Browse File">
+                    <input id="browse_file" type="button" value="Browse File" onclick="onOpenCVReady()">
                 </figure>
             </div>
         </div>
-        <input type="file" name="sheet_music[]" accept="image/*" multiple id="fileInput" style="display: none;">
+        <input id="file_input" type="file" name="sheet_music[]" accept="image/*" multiple id="fileInput" style="display: none;">
         <div class="buttons">
             <button>Play</button>
             <button>Stop</button>
@@ -43,6 +44,62 @@
             <button id="save_music">Save Music</button>
             <button id="clear">Clear</button>
         </div>
+        <canvas id="outputCanvas" width="400" height="300"></canvas>
     </main>
+    <script>
+        // Function to run when OpenCV.js is ready
+        function onOpenCVReady() {
+            // Load the image when a file is selected
+            document.getElementById('file_input').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        // Display the original image on inputCanvas
+                        // const inputCanvas = document.getElementById('inputCanvas');
+                        // const inputCtx = inputCanvas.getContext('2d');
+                        // inputCtx.drawImage(img, 0, 0, inputCanvas.width, inputCanvas.height);
+
+                        // Preprocess the image using OpenCV.js
+                        preprocessImage(img);
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Function to preprocess the image using OpenCV.js
+        function preprocessImage(img) {
+            // Create a cv.Mat object from the image
+            let src = cv.imread(img);
+
+            // Convert the image to grayscale
+            cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
+
+            /// Convert the preprocessed image data to base64 string
+            const base64ImageData = cv.imencode('.png', src).toString('base64');
+
+            // Send the base64 image data to the Flask server
+            $.ajax({
+                url: '/flask_server/convert-to-midi',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ imageData: base64ImageData }),
+                success: function(response) {
+                    // Handle successful response (e.g., download MIDI file)
+                    // For example: window.location.href = response.midiUrl;
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error('Error:', error);
+                }
+            });
+
+            // Free memory
+            src.delete();
+        }
+    </script>
 </body>
 </html>
