@@ -1,0 +1,58 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body{
+    white-space: nowrap;
+    font-size: 0;
+}
+nav, main{
+    vertical-align: top;
+    height: 100vh;
+}
+nav{
+    border-right: 1px solid black;
+    width: 20%;
+    font-size: 16px;
+    display: inline-block;
+    padding: 20px;
+}
+main{
+    width: 80%;
+    font-size: 16px;
+    display: inline-block;
+}
+    nav a{
+        display: block;
+        text-decoration: none;
+        padding: 10px 0;
+    }
+    main header{
+        border-bottom: 1px solid black;
+        padding: 20px;
+        text-align: right;
+        color: black;
+    }
+    main #file_upload{
+        border: 1px dashed gray;
+        width: 50%;
+        height: 200px;
+        margin: 50px auto;
+        text-align: center;
+        padding-top: 40px;
+    }
+        main #file_upload input{
+            display: block;
+        }
+        main #file_upload input[type='button']{
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding: 5px 10px;
+            margin: 0 auto;
+        }
+        main #file_upload input[type='file']{
+            display: none;
+        }

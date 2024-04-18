@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <header>
+        <% if(typeof result !== "undefined" && result === "success"){ %>
+        <p id="success">Successfull registered!</p>
+        <% }
+        else if(typeof result !== "undefined"){ %>
+        <p class="error"><%= result %></p>
+        <% } %>
+    </header>
+    <form action="/authenticate" method="post">
+        <h1>Login</h1>
+        <label>Email Address:
+            <input type="text" name="email">
+        </label>
+        <label>Password:
+            <input type="password" name="password">
+        </label>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>

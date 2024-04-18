@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/file_upload.js"></script>
+    <title>Dashboard</title>
+</head>
+<body>
+    <nav>
+        <h2>SheetSound Synth</h2>
+        <a href="">Dashboard</a>
+        <a href="">Saved Music</a>
+        <a href="">Logout</a>
+    </nav>
+    <main>
+        <header>
+            <h3><%= information.firstname%> <%= information.lastname %></h3>
+        </header>
+        <div>
+            <div id="file_upload">
+                <img src="/images/cloud_upload.svg" alt="Cloud upload icon">
+                <input id="browse_file" type="button" value="Browse File">
+                <input type="file" name="">
+            </div>
+        </div>
+    </main>
+</body>
+</html>
