@@ -35,14 +35,23 @@ main{
         text-align: right;
         color: black;
     }
+    main .main_div{
+        height: 65%;
+        border-bottom: 1px solid black;
+        overflow: auto;
+    }
     main #file_upload{
         border: 1px dashed gray;
         width: 50%;
-        height: 200px;
-        margin: 50px auto;
         text-align: center;
-        padding-top: 40px;
+        overflow: hidden;
+        border-radius: 10px;
+        margin: 120px auto;
+        /* padding: 50px 0; */
     }
+        #file_upload figure img{
+            margin: 20px 0 15px 0;
+        }
         main #file_upload input{
             display: block;
         }
@@ -51,8 +60,27 @@ main{
             border: 1px solid black;
             border-radius: 10px;
             padding: 5px 10px;
-            margin: 0 auto;
+            margin: 0px auto;
+            margin-bottom: 50px;
         }
         main #file_upload input[type='file']{
             display: none;
+        }
+    main .buttons{
+        width: 50%;
+        margin: 0 auto;
+        white-space: nowrap;
+        font-size: 0;
+        display: flex;
+        justify-content: space-between;
+        /* display: none; */
+        padding: 10px 0;
+    }
+        .buttons button{
+            display: inline-block;
+            width: 30%;
+            padding: 5px 0;
+        }
+        .buttons select{
+            width: 30%;
         }
