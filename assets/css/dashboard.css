@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
 }
 body{
     white-space: nowrap;
@@ -11,6 +12,7 @@ body{
 nav, main{
     vertical-align: top;
     height: 100vh;
+    /* border: 1px dotted red; */
 }
 nav{
     border-right: 1px solid black;
@@ -39,6 +41,7 @@ main{
         height: 65%;
         border-bottom: 1px solid black;
         overflow: auto;
+        position: relative;
     }
     main #file_upload{
         border: 1px dashed gray;
@@ -66,7 +69,15 @@ main{
         main #file_upload input[type='file']{
             display: none;
         }
-    main .buttons{
+        #loading{
+            background-color: rgba(165, 157, 157, 0.5);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            
+        }
+        main .buttons{
         width: 50%;
         margin: 0 auto;
         white-space: nowrap;

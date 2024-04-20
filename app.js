@@ -1,16 +1,12 @@
 const express = require("express");
-// const session = require('express-session');
 const routes = require("./routes");
 const bodyParser = require('body-parser');
 
 const app = express();
+const path = require('path');
+const axios = require('axios');
 
-// app.use(session({
-//     secret: 'keyboardkitteh',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 60000 }
-// }));
+const multer  = require('multer')
 
 app.use(bodyParser.urlencoded({extended: true}));
 /*use the routes*/
@@ -20,10 +16,43 @@ app.use("/register", routes);
 
 /*serving static content*/
 app.use(express.static("assets"));
+app.use(express.static("flask_server"))
 
 /*using templates*/
-app.set("views", __dirname + "/views")
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+// Set up multer storage
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/') // Destination folder where uploaded files will be stored
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)) // Filename format
+    }
+});
+
+// Initialize multer
+const upload = multer({ storage: storage });
+
+// Define a route to handle file upload
+app.post('/upload', upload.single('images'), async (req, res) => {
+    let imagePath = req.file.destination + req.file.filename;
+    try{
+        const flaskServerURL = 'http://127.0.0.1:5000/process-image'; // Replace with the Flask server URL and port
+
+        // Make HTTP POST request to Flask server
+        const response = await axios.post(flaskServerURL, { imagePath });
+
+        // Handle response from Flask server
+        console.log("Output: " + response);
+        res.send(response.data);
+    }
+    catch(error){
+        console.error('Error processing image:', error);
+        res.status(500).send('Error processing image');
+    }
+});
 
 app.listen(8080, () => {
     console.log("Listening on port 8080");

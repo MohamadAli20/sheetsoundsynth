@@ -1,4 +1,6 @@
 const model = require("../models/User");
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 class Users{
     /*render view files*/
@@ -11,7 +13,6 @@ class Users{
     register(req, res){
         res.render("register");
     }
-
 
     /*functions interact with model*/
     create(req, res){
