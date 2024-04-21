@@ -12,4 +12,5 @@ Router.post("/create", UserController.create);
 Router.post("/authenticate", UserController.authenticate);
 Router.post("/save_music", UserController.save_music);
 Router.get("/logout", UserController.logout);
+Router.post("/delete_music/:musicId", UserController.delete_music);
 module.exports = Router;

@@ -13,7 +13,17 @@
 	<title>Saved Music</title>
     <script>
         $(document).ready(function(){
-            
+            $.ajax({
+                url: "/music_library",
+                type: "GET",
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(xhr, status, error){
+                    console.error(error);
+                }
+
+            })
         });
     </script>
 </head>

@@ -55,6 +55,7 @@ app.post('/upload', upload.single('images'), async (req, res) => {
         // const response = await axios.post(flaskServerURL, { imagePath });
 
         // let midiPath = response.data;
+        imagePath = "/" + req.file.filename;
         let midiPath = "/midi/images-1713597961696.mid";
         res.send({imagePath, midiPath});
     }

@@ -116,6 +116,19 @@ class Student{
             }
         )
     }
+    delete_music(musicId, callback){
+        this.connection.query(
+            "DELETE FROM musics WHERE id = ?",
+            [ musicId ],
+            (error) => {
+                if(error){
+                    console.error(error);
+                    callback(error, null);
+                    return;
+                }
+            }
+        )
+    }
     end(){
         this.connection.end((err) => {
             if (err) {

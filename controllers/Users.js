@@ -116,10 +116,17 @@ class Users{
                 return;
             }
             if(data){
-                res.render("savemusic", { username: req.session.name, music: data });                                
+                console.log(data);
+                // res.render("savemusic", { username: req.session.name, music: data });                                
+                res.status(200).json(data);
             }
         })
-
+    }
+    delete_music(req, res){
+        const musicId = req.params.musicId;
+        model.delete_music(musicId, (error) => {
+            
+        });
     }
 }
 module.exports = new Users;

@@ -69,12 +69,11 @@
             height: 100%;
         }
 
-.music_figure{
+#delete_modal{
     width: 100px;
-    height: 100px;
+    height: 50px;
     border: 1px solid black;
+    position: absolute;
+    top: 0;
+
 }
-    .music_figure img{
-        width: 100px;
-        height: 50px;
-    }
