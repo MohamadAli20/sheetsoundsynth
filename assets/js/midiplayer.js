@@ -10,10 +10,11 @@ let nextStepTime = 0;
 let nextPositionTime = 0;
 let loadedsong = null;
 
-function getMidi(){
+function getMidi(path){
     console.log("midiplayer.js");
     /*get the midi file*/
-    let path = $("#musicXmlPath").val();
+    // let path = $("#midi_path").val();
+    // let path = "/midi/images-1713604532763.mid";
     console.log(path);
     let xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.open("GET", path, true);

@@ -36,12 +36,12 @@ def process_image():
         # Run the oemer command to convert the image to MusicXML
         command = ['oemer', image_path, '-o', './' + musicXml_folder]
 
-        # try:
-        #     subprocess.run(command, check=True)
-        #     end_time = time.time()
-        #     print("Time taken:" + str(end_time - start_time))
-        # except subprocess.CalledProcessError:
-        #     return jsonify({'error': 'Conversion failed'}), 500
+        try:
+            subprocess.run(command, check=True)
+            end_time = time.time()
+            print("Time taken:" + str(end_time - start_time))
+        except subprocess.CalledProcessError:
+            return jsonify({'error': 'Conversion failed'}), 500
         
         # convert MusicXML into MIDI using Music21
         xml_path = musicXml_folder + "/" + os.path.splitext(data.get('imagePath'))[0] + ".musicxml"

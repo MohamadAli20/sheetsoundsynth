@@ -68,7 +68,41 @@ $(document).ready(function(){
         }
         deleteMusic(musicIdDel);
     });
+    /*Display the selected music*/
+    $(".custom_main_dash").on("click", ".musiclist", function(){
+        let displayImagePath = $(this).find("div > img").attr("src");
+        let displayMidiPath = $(this).find("figcaption > input[name='midiPath']").val();
+        $("#image_path").val(displayImagePath);
+        $("#midi_path").val(displayMidiPath);
 
+        getMidi(displayMidiPath);
+
+        displayRetrievedImage(displayImagePath);
+
+        $(".custom_buttons").css("display", "block");
+        /*set all children display to none*/
+        // $(".custom_main_dash").find('*').css('display', 'none');
+        // $(".custom_buttons").css('display', 'none');
+
+        $(".custom_link_dashboard").css("background-color", "gray");
+        $(".custom_link_music").css("background-color", "white");
+    
+        $(".musiclist").css("display", "none");
+    })
+    $("#volume").change(function(){
+        let volume = $("#volume").val();
+        if(volume > 50){
+            $(".volumes").find("img").attr("src", "/images/volume_up.svg");
+        }
+        else if(volume <= 50 && volume > 0){
+            $(".volumes").find("img").attr("src", "/images/volume_down.svg");
+        }
+        else if(volume == 0){
+            $(".volumes").find("img").attr("src", "/images/volume_off.svg");            
+        }
+    });
+
+    /*Functions*/
     let handleDisplayImage = (event) => {
         let files = event.target.files;
 
@@ -81,6 +115,21 @@ $(document).ready(function(){
             let image = document.createElement('img');
             image.className = "uploaded_image"
             image.setAttribute('src', URL.createObjectURL(files[i]));
+            image.style.width = '100%';
+            figure.appendChild(image);
+            $(".custom_main_dash").append(figure);
+        }
+    }
+    let displayRetrievedImage = (path) => {
+        for(let i = 0; i < 1; i++){
+            let figure = document.createElement('figure');
+            figure.style.width = '70%';
+            figure.style.border = '1px solid black';
+            figure.style.margin = '20px auto';
+
+            let image = document.createElement('img');
+            image.className = "uploaded_image"
+            image.setAttribute('src', path);
             image.style.width = '100%';
             figure.appendChild(image);
             $(".custom_main_dash").append(figure);
@@ -106,7 +155,7 @@ $(document).ready(function(){
                 $("#image_path").val(response.imagePath);
                 $("#midi_path").val(response.midiPath);
                 $("#loading").css("display", "none");
-                getMidi();
+                getMidi(response.midiPath);
             },
             error: function (xhr, status, error) {
                 console.error('Upload failed' + error);
@@ -193,6 +242,7 @@ $(document).ready(function(){
             caption.append(musicId);
 
             let midi = document.createElement('input');
+            midi.name = "midiPath";
             midi.type = "hidden";
             midi.value = data[i].midi_path;
             caption.append(midi);

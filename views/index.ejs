@@ -40,9 +40,12 @@
 							</div>
 						</div>
 					</div>
+					<div class="volumes container-fluid">
+						<img src="/images/volume_up.svg" alt="Volume icon">
+						<input id="volume" type="range" class="form-range" min="0" max="100" value="100" step="1">
+					</div>
 				</div>
 				<div class="row justify-content-center custom_buttons">
-					<p><input id="volume" type="range" min="0" max="100" value="100" step="1"></p>
 					<input type="hidden" id="image_path" value="">
 					<input type="hidden" id="midi_path" value="">
 					<button id="play">Play</button>
@@ -58,7 +61,7 @@
 				</div>
 			</main>
 		</div>
-		<!-- Modal -->
+		<!-- Modal for music deletion -->
 		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<input name="modal_music_id" type="hidden" value="">
 			<div class="modal-dialog" role="document">
@@ -75,6 +78,27 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 					<button id="deleteMusic" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+				</div>
+			</div>
+			</div>
+		</div>
+		<!-- Modal for logging out -->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<input name="modal_music_id" type="hidden" value="">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+					Are you sure you want to delete this?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+					<button id="logout" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
 				</div>
 			</div>
 			</div>

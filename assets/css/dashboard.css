@@ -68,7 +68,15 @@
         .custom_spinner{
             height: 100%;
         }
-
+    .volumes{
+        border: 1px solid black;
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+    }
+        .volumes img, .volumes input{
+            vertical-align: middle;
+        }
 #delete_modal{
     width: 100px;
     height: 50px;
