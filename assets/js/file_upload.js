@@ -8,7 +8,6 @@ $(document).ready(function(){
         /*remove the default children*/
         $("#file_upload").css('display', 'none');
         handleDisplayImage(event);        
-
         $(".buttons").css("display", "flex");
     });
     /*change selected image*/
@@ -19,8 +18,17 @@ $(document).ready(function(){
     $("#clear").click(function(){
         $(".custom_main_dash > figure").remove();
         $("#file_upload").css('display', 'block');
+        stop();        
     });
-    
+    $("#play").click(function(){
+        go();
+    });
+    $("#stop").click(function(){
+        stop();
+    });
+    $("#save_music").click(function(){
+        saveMusic();
+    });
     
 
     let handleDisplayImage = (event) => {
@@ -33,6 +41,7 @@ $(document).ready(function(){
             figure.style.margin = '20px auto';
 
             let image = document.createElement('img');
+            image.className = "uploaded_image"
             image.setAttribute('src', URL.createObjectURL(files[i]));
             image.style.width = '100%';
             figure.appendChild(image);
@@ -40,11 +49,10 @@ $(document).ready(function(){
         }
     }
 
-    /*send image in python server*/
+    /*send image in flask server*/
     let convertToMidi = () => {
-        console.log("Upload files!");
+        $("#loading").css("display", "block");
         var formData = new FormData();
-        // console.log(e.target.files);
         var files = $('#file_input')[0].files;
 
         for (var i = 0; i < files.length; i++) {
@@ -57,12 +65,30 @@ $(document).ready(function(){
             contentType: false,
             processData: false,
             success: function (response) {
-                console.log("Client Side: ", response);
-                $("#musicXmlPath").val(response.result);
+                $("#image_path").val(response.imagePath);
+                $("#midi_path").val(response.midiPath);
+                $("#loading").css("display", "none");
+                getMidi();
             },
             error: function (xhr, status, error) {
                 console.error('Upload failed' + error);
             }
         });
+    }
+
+    let saveMusic = () => {
+        let pathImage = $("#image_path").val();
+        let pathMidi = $("#midi_path").val();
+        $.ajax({
+            url: "/save_music",
+            type: "POST",
+            data: {pathImage, pathMidi},
+            success: function(response){
+                console.log(response);
+            },
+            error: function(xhr, status, error){
+                console.error(error);
+            }
+        })
     }
 });

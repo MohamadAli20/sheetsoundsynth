@@ -48,7 +48,8 @@ class Student{
                             return;
                         }
                         callback(false);
-                    });
+                    }
+                );
             }
             else{
                 callback(true);
@@ -69,6 +70,7 @@ class Student{
                 if(row.length !== 0){
                     verified = bcrypt.compareSync(credentials.password, row[0].hashed_password);
                     const information = {
+                        id: row[0].id,
                         firstname: row[0].firstname,
                         lastname: row[0].lastname,
                         email: row[0].email
@@ -79,6 +81,40 @@ class Student{
                     callback(null, verified, false);
                 }
             });
+    }
+    insert_music(music_info, callback){
+        console.log(music_info);
+        const date = new Date();
+        const today = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
+        this.connection.query(
+            "INSERT INTO musics(user_id, image_path, midi_path, created_at) VALUES(?,?,?,?)",
+            [ music_info.userId, music_info.imagePath, music_info.midiPath, today ],
+            (error) => {
+                if(error){
+                    console.error(error);
+                    callback(error);
+                    return;
+                }
+                callback(false);
+            }
+        );
+    }
+    select_music(userId, callback){
+        this.connection.query(
+            "SELECT * FROM musics WHERE user_id = ?",
+            [ userId ],
+            (error, data) => {
+                if(error){
+                    console.error(error);
+                    callback(error, null);
+                    return;
+                }
+                if(data){
+                    callback(null, data);
+                }
+            }
+        )
     }
     end(){
         this.connection.end((err) => {

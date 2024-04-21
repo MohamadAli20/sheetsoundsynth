@@ -1,22 +1,32 @@
 const express = require("express");
 const routes = require("./routes");
+const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const app = express();
 const path = require('path');
 const axios = require('axios');
-
 const multer  = require('multer')
+
+/*Session data*/
+app.use(session({
+    secret: 'keyboardkitteh',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
+}))
 
 app.use(bodyParser.urlencoded({extended: true}));
 /*use the routes*/
 app.use("/", routes);
 app.use("/login", routes);
 app.use("/register", routes);
+app.use("/music_library", routes);
 
 /*serving static content*/
 app.use(express.static("assets"));
 app.use(express.static("flask_server"))
+app.use(express.static("uploads"));
 
 /*using templates*/
 app.set("views", path.join(__dirname, "views"));
@@ -39,14 +49,14 @@ const upload = multer({ storage: storage });
 app.post('/upload', upload.single('images'), async (req, res) => {
     let imagePath = req.file.destination + req.file.filename;
     try{
-        const flaskServerURL = 'http://127.0.0.1:5000/process-image'; // Replace with the Flask server URL and port
+        // const flaskServerURL = 'http://127.0.0.1:5000/process-image'; // Replace with the Flask server URL and port
 
         // Make HTTP POST request to Flask server
-        const response = await axios.post(flaskServerURL, { imagePath });
+        // const response = await axios.post(flaskServerURL, { imagePath });
 
-        // Handle response from Flask server
-        console.log("Output: " + response);
-        res.send(response.data);
+        // let midiPath = response.data;
+        let midiPath = "/midi/images-1713597961696.mid";
+        res.send({imagePath, midiPath});
     }
     catch(error){
         console.error('Error processing image:', error);

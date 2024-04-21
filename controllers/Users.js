@@ -5,7 +5,7 @@ const upload = multer({ dest: 'uploads/' })
 class Users{
     /*render view files*/
     index(req, res){
-        res.render("index");
+        res.render("index", { username: req.session.name });                
     }
     login(req, res){
         res.render("login");
@@ -13,8 +13,14 @@ class Users{
     register(req, res){
         res.render("register");
     }
+    // music_library(req, res){
+    //     let data = this.retrieve_music(req, res);
+    //     console.log(req.session.userId);
+    //     console.log(req.session.name)
+    //     res.render("savemusic", { username: req.session.name });
+    // }
 
-    /*functions interact with model*/
+    /*create and retrieve user account*/
     create(req, res){
         let result = "";
         /*validate email*/
@@ -68,7 +74,9 @@ class Users{
                     return;
                 }
                 if(verified){
-                    res.render("index", { information });
+                    req.session.userId = information.id;
+                    req.session.name = information.firstname + " " + information.lastname
+                    res.render("index", { username: req.session.name });
                 }
                 if(!verified){
                     result = "Login Failed";
@@ -79,6 +87,39 @@ class Users{
         else {
             res.render("login", { result }); // Render result without verification
         }
+    }
+    logout(req, res){
+        console.log("Remove session data");
+        req.session.destroy(); /*destroy the session*/
+        res.redirect("login");
+    }
+
+    /*save, retrieve and delete music*/
+    save_music(req, res){
+        let music_info = {
+            userId: req.session.userId,
+            imagePath: req.body.pathImage,
+            midiPath: req.body.pathMidi
+        };
+        model.insert_music(music_info, (error) => {
+            if(error){
+                console.error(error);
+                return;
+            }
+        });
+    }
+    music_library(req, res){
+        let userId = req.session.userId;
+        model.select_music(userId, (error, data) => {
+            if(error){
+                console.error(error);
+                return;
+            }
+            if(data){
+                res.render("savemusic", { username: req.session.name, music: data });                                
+            }
+        })
+
     }
 }
 module.exports = new Users;

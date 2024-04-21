@@ -15,16 +15,6 @@
         <p class="error"><%= result %></p>
         <% } %>
     </header>
-    <!-- <form action="/students/profile" method="post">
-        <h1>Login</h1>
-        <label>Email Address:
-            <input type="text" name="email">
-        </label>
-        <label>Password:
-            <input type="password" name="password">
-        </label>
-        <input type="submit" value="Login">
-    </form> -->
     <form action="/create" method="post">
         <h1>Register</h1>
         <label>First Name:
@@ -43,6 +33,7 @@
             <input type="password" name="confirm_pass">
         </label>
         <input type="submit" value="Register">
+        <p><a href="/login">Already have an account?</a></p>
     </form>
 </body>
 </html>

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/dashboard.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/js/WebAudioFontPlayer.js"></script>
+	<script src="/js/MIDIFile.js"></script>
+	<script src="/js/midiplayer.js"></script>
 	<script src="/js/file_upload.js"></script>
-	<script	type="text/javascript" src="https://unpkg.com/tone@latest/build/Tone.js"></script>
-	<script type="text/javascript" src="https://unpkg.com/@tonejs/ui@0.0.8/build/tonejs-ui.js"></script>
-	<script type="text/javascript" src="https://unpkg.com/@tonejs/midi"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<title>Dashboard</title>
 </head>
@@ -17,13 +17,13 @@
 		<div class="row">
 			<nav class="col-3 col-xs-12 border custom_nav">
 				<h2 class="py-2">SheetSound Synth</h2>
-				<a class=" custom_link_dashboard" href="">Dashboard</a>
-				<a class="" href="">Saved Music</a>
-				<a class="" href="">Logout</a>
+				<a class=" custom_link_dashboard" href="/">Dashboard</a>
+				<a href="/music_library">Saved Music</a>
+				<a href="/logout">Logout</a>
 			</nav>
 			<main class="col-9 col-xs-12 border custom_main">
 				<header class="row justify-content-end py-2">
-					<h3 class=""><%= information.firstname%> <%= information.lastname %></h3>
+					<h3 class=""><%= username %></h3>
 				</header>
 				<div class="row border custom_main_dash">
 					<form class="" id="file_upload" enctype="multipart/form-data">
@@ -34,87 +34,32 @@
 						<input id="file_input" type="file" name="images" accept="image/*" multiple>
 					</form>
 					<div id="loading">
-						<div class="d-flex justify-content-center align-items-center">
-							<div class="spinner-border" role="status">
+						<div class="d-flex justify-content-center custom_spinner border">
+							<div class="d-flex align-self-center spinner-border " role="status">
 								<span class="sr-only">Loading...</span>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row justify-content-center custom_buttons">
-					<input type="hidden" id="musicXmlPath" value="">
+					<input type="hidden" id="image_path" value="">
+					<input type="hidden" id="midi_path" value="">
 					<button id="play">Play</button>
-					<button>Stop</button>
+					<p style="display: none;"><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>
+					<button id="stop">Stop</button>
 					<button id="btn_convert">Convert</button>
-				
 				</div>
 				<div class="row justify-content-center custom_buttons">
-					<select name="" id="">
-						<option value="piano">Piano</option>
-						<option value="flute">Flute</option>
-						<option value="violin">Violin</option>
-						<option value="guitar">Guitar</option>
+					<select name="" id="instruments">
 					</select>
 					<button id="save_music">Save Music</button>
 					<button id="clear">Clear</button>
 				</div>
 			</main>
+			<p>
+			<input id="volume" type="range" min="0" max="100" value="100" step="1"></p>
 		</div>
 	</div>
-    <!-- <script type="text/javascript">
-		$(document).ready(function(){
-			$("#play").click(async function(){
-				const synths = [];
-				let midiPath = "/midi/images-1713597961696.mid" /*remove this after, this is just a sample*/
-				// let midiPath = $("#musicXmlPath").val(); // Adjust the path as needed
-				// const midi = new Midi();
-
-				// load a midi file in the browser
-				const midi = await Midi.fromUrl(midiPath)
-				//the file name decoded from the first track
-				const name = midi.name
-				const now = Tone.now() + 0.5;
-				//get the tracks
-				midi.tracks.forEach(track => {
-					// create a synth for each track
-					const synth = new Tone.PolySynth(Tone.AMSynth, {
-						envelope: {
-							attack: 0.02,
-							decay: 0.1,
-							sustain: 0.3,
-							release: 1,
-						},
-					}).toDestination();
-					// const synth = new Tone.PluckSynth({
-					// 	// Adjust envelope settings as needed
-					// 	attackNoise: 1,
-					// 	dampening: 4000,
-					// 	resonance: 0.9
-					// }).toDestination();
-					synths.push(synth);
-					//schedule all of the events
-					track.notes.forEach((note) => {
-						synth.triggerAttackRelease(
-							note.name,
-							note.duration,
-							note.time + now,
-							note.velocity
-						);
-					});
-				//the control changes are an object
-				//the keys are the CC number
-				// track.controlChanges[64]
-				// //they are also aliased to the CC number's common name (if it has one)
-				// track.controlChanges.sustain.forEach(cc => {
-				// 	// cc.ticks, cc.value, cc.time
-				// })
-
-				//the track also has a channel and instrument
-				//track.instrument.name
-				})
-			});
-		});
-    </script> -->
 	<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
