@@ -1,0 +1,138 @@
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('/fonts/proxima-nova-2/Mark\ Simonson\ \ Proxima\ Nova\ Regular.otf') format('opentype');
+}
+*{
+    font-family: 'Proxima Nova', sans-serif;
+    color: #43444E;
+}
+nav{
+    position: fixed;
+}
+.custom_nav{
+    border-bottom: 1px solid #43444E;
+}
+    .custom_nav a{
+        color: #43444E;
+        margin: 0 20px;
+        display: inline-block;
+    }
+    .custom_nav div{
+        width: 20%;
+        margin-left: 0;
+    }
+    .custom_nav ul{
+        display: inline-block;
+    }
+    .custom_nav ul li{
+        display: inline-block;
+    }
+    .custom_signup{
+        border-color: #f2725f;
+        color: #f2725f;;
+    }
+    .custom_nav div
+    .custom_signup{
+        border-color: #f2725f;;
+        color: #f2725f;
+        margin: 0 20px
+    }
+main{
+    height: 81vh;
+    overflow: auto;
+}
+/* Image */
+.image_wrapper{
+    width: 50%;
+    margin: 50px auto;
+}
+    main #image{
+        width: 100%;
+        box-shadow: 0px 0px 17px 14px rgba(0,0,0,0.1);
+    }
+    main #position{
+        position: absolute;
+        bottom: 65px;
+        width: 100%;
+        z-index: 5;
+        border-radius: 0;
+    }
+    #position{
+        -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+        appearance: none; /* Remove default styling for other browsers */
+        width: 100%; /* Set width to fill parent container */
+        height: 10px; /* Set desired height */
+        background: #ddd; /* Set background color */
+        border-radius: 0; /* Remove border-radius */
+        outline: none; /* Remove default focus styling */        
+    }
+   
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+        appearance: none; /* Remove default styling for other browsers */
+        width: 20px; /* Set width of thumb */
+        height: 20px; /* Set height of thumb */
+        background: #f2725f; /* Set background color of thumb */
+        border-radius: 50%; /* Round the thumb */
+        cursor: pointer; /* Set cursor to pointer */
+    }
+/* Controls */
+.controls{
+    /* height: 70px; */
+    width: 100%;
+    background-color: #43444e;
+    position: absolute;
+    bottom: 0;
+    padding: 0 20px;
+    text-align: center;
+    position: fixed;
+}
+
+    .controls button, 
+    .controls select{
+        background-color: #282828;
+        color: white;
+        border: none;
+        height: 30px;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 5px;
+        margin: 20px 10px;
+    }
+    .controls .volumes,
+    .controls #volume{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .controls button{
+        width: 70px;
+    }
+        .volumes img{
+            width: 100%;
+        }
+        #volume{
+            width: 300px;
+        }
+        #volume::-webkit-slider-thumb {
+            width: 20px; /* Set the width of the thumb */
+            height: 20px; /* Set the height of the thumb */
+            background-color: #f2725f; /* Set the color of the thumb */
+            border: 2px solid #333; /* Add a border around the thumb */
+            border-radius: 50%; /* Make the thumb round */
+         
+            /* Center the thumb */
+            position: relative;
+            top: 100%;
+            transform: translateY(-50%);
+        }
+    .controls select{
+        width: 300px;
+        
+    }
+        .controls select option{
+            color: white;
+        }
+/* Login form */
+.login_background{
+    display: none;
+}

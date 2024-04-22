@@ -6,6 +6,9 @@ from music21 import *
 import os
 import time
 import subprocess
+import onnxruntime as ort
+print(ort.get_available_providers())
+
 
 app = Flask(__name__)
 

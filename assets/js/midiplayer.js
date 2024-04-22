@@ -11,11 +11,6 @@ let nextPositionTime = 0;
 let loadedsong = null;
 
 function getMidi(path){
-    console.log("midiplayer.js");
-    /*get the midi file*/
-    // let path = $("#midi_path").val();
-    // let path = "/midi/images-1713604532763.mid";
-    console.log(path);
     let xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.open("GET", path, true);
     xmlHttpRequest.responseType = "arraybuffer";
@@ -48,6 +43,8 @@ function go() {
 }
 
 function stop() {
+    let o = document.getElementById('position');
+    o.value = 0;
     if (audioContext.state === 'running') {
         audioContext.suspend();
     }
@@ -73,6 +70,8 @@ function tick(song, stepDuration) {
     }
     if (nextPositionTime < audioContext.currentTime) {
         let o = document.getElementById('position');
+        console.log(currentSongTime);
+        console.log(song.duration)
         o.value = 100 * currentSongTime / song.duration;
         nextPositionTime = audioContext.currentTime + 3;
     }

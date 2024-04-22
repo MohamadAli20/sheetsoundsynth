@@ -4,15 +4,23 @@ const upload = multer({ dest: 'uploads/' })
 
 class Users{
     /*render view files*/
+    // index(req, res){
+    //     res.render("index", { username: req.session.name });                
+    // }
     index(req, res){
-        res.render("index", { username: req.session.name });                
+        res.render("index");
+    }
+    playground(req, res){
+        res.render("conversion");
+    }
+    register(req, res){
+        console.log("Goes here");
+        res.render("register");
     }
     login(req, res){
         res.render("login");
     }
-    register(req, res){
-        res.render("register");
-    }
+    
     // music_library(req, res){
     //     let data = this.retrieve_music(req, res);
     //     console.log(req.session.userId);

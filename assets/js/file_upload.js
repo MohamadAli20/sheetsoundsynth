@@ -1,15 +1,14 @@
 $(document).ready(function(){
-    /*trigger the input type file once button is clicked*/
-    $("#browse_file").click(function(){
-        $("input[type='file']").trigger('click');
-    });
-    /*display selected image*/
-    $("input[type='file']").change(function(event){
-        /*remove the default children*/
-        $("#file_upload").css('display', 'none');
-        handleDisplayImage(event);        
-        $(".buttons").css("display", "flex");
-    });
+    // /*trigger the input type file once button is clicked*/
+    // $("#browse_file").click(function(){
+    //     $("input[type='file']").trigger('click');
+    // });
+    // /*display selected image*/
+    // $("input[type='file']").change(function(event){
+    //     /*remove the default children*/
+    //     $("#file_upload").css('display', 'none');
+    //     handleDisplayImage(event);
+    // });
     /*change selected image*/
     $("#btn_convert").click(function(){
         convertToMidi();
@@ -45,7 +44,7 @@ $(document).ready(function(){
         /*set all children display to none*/
         $(".custom_main_dash").find('*').css('display', 'none');
         $(".custom_buttons").css('display', 'none');
-        
+        $(".volumes").css("display", "block");
         $(".custom_link_dashboard").css("background-color", "white");
         $(".custom_link_music").css("background-color", "gray");
         retrieveMusic();
@@ -138,7 +137,7 @@ $(document).ready(function(){
 
     /*send image in flask server*/
     let convertToMidi = () => {
-        $("#loading").css("display", "block");
+        $(".loader_background").css("display", "block");
         var formData = new FormData();
         var files = $('#file_input')[0].files;
 
@@ -155,6 +154,7 @@ $(document).ready(function(){
                 $("#image_path").val(response.imagePath);
                 $("#midi_path").val(response.midiPath);
                 $("#loading").css("display", "none");
+                $("#volume").css("display", "block");
                 getMidi(response.midiPath);
             },
             error: function (xhr, status, error) {

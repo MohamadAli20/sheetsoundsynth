@@ -18,10 +18,14 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({extended: true}));
 /*use the routes*/
-app.use("/", routes);
-app.use("/login", routes);
+// app.use("/", routes);
+// app.use("/login", routes);
 app.use("/register", routes);
 app.use("/music_library", routes);
+
+/*new*/
+app.use("/", routes);
+app.use("/playground", routes);
 
 /*serving static content*/
 app.use(express.static("assets"));
@@ -51,12 +55,12 @@ app.post('/upload', upload.single('images'), async (req, res) => {
     try{
         // const flaskServerURL = 'http://127.0.0.1:5000/process-image'; // Replace with the Flask server URL and port
 
-        // // Make HTTP POST request to Flask server
+        // // // Make HTTP POST request to Flask server
         // const response = await axios.post(flaskServerURL, { imagePath });
 
-        let midiPath = response.data;
+        // let midiPath = response.data;
         imagePath = "/" + req.file.filename;
-        // let midiPath = "/midi/images-1713597961696.mid";
+        let midiPath = "/midi/images-1713781922800.mid";
         res.send({imagePath, midiPath});
     }
     catch(error){
