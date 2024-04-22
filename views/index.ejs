@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar px-3 custom_nav">
         <a class="navbar-brand">SheetSoundSynth</a>
-        <ul class="navbar-nav ">
+        <ul class="navbar-nav border">
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home</a>
             </li>
@@ -21,8 +21,8 @@
                 <a class="nav-link" href="#">Saved Music</a>
             </li>
         </ul>
-        <div class="">
-            <button class="btn">Login</button>
+        <div class="buttons border">
+            <button class="btn btn_login">Login</button>
             <a href="/register_account"><button class="btn custom_signup my-2 my-sm-0" type="submit">Sign up</button></a>
         </div>
     </nav>
@@ -48,22 +48,23 @@
     <div class="loader_background">
         <div class="loader"></div>
     </div>
-    <!-- Login form -->
-    <div class="login_background">
-        <form class="login_form" action="">
+    <!-- Login form modal -->
+    <div class="login_background" >
+        <form class="login_form" method="post">
+            <p id="message"></p>
             <h3>Login to SheetSoundSynth</h3>
             <label>Email Address
-                <input class="" type="email">
+                <input class="" type="email" name="login_email">
             </label>
             <label>Password
-                <input type="password">
+                <input type="password" name="login_password">
             </label>
             <input type="submit" value="Log in">
-            <button class="btn btn-outline-secondary">Cancel</button>
-            <p>Don't have an account?<a href="">Sign up</a></p>
+            <button class="btn btn-outline-secondary btn_cancel">Cancel</button>
+            <p>Don't have an account?<a href="/register_account">Sign up</a></p>
         </form>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

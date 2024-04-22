@@ -24,9 +24,12 @@
     .custom_nav ul li{
         display: inline-block;
     }
+    .custom_nav .buttons{
+        display: block;
+    }
     .custom_signup{
         border-color: #f2725f;;
-        color: #f2725f;;
+        color: #f2725f;
     }
     .custom_nav div
     .custom_signup{
@@ -145,6 +148,12 @@ footer{
     width: 50%;
     padding: 20px;
 }
+    .login_form #message{
+        text-align: center;
+        color: red;
+        font-size: 16px;
+        height: 25px;
+    }
     .login_form h3{
         text-align: center;
         margin: 20px 0;

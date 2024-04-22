@@ -1,4 +1,66 @@
 $(document).ready(function(){
+    /* show and remove login modal*/
+    $(".btn_login").click(function(){
+        console.log("jdfhdf");
+        $(".login_background").css("display", "block");
+    });
+    $(".login_form").submit(function(e){
+        e.preventDefault();
+        window.history.replaceState({}, document.title, "/login_account");
+        let formData = $(this).serialize();
+        console.log(formData);
+        $.ajax({
+            url: "/login_account",
+            type: "POST",
+            data: formData,
+            success: function(response){
+                if(typeof response === "string"){
+                    $("#message").text(response);
+                }
+                else if(typeof response === "object"){
+                    localStorage.setItem("username", response.name);
+                    redirectHome();            
+                }
+            },
+            error: function(xhr, status, error){
+                console.error(error);
+            }
+        })
+    })
+    $(".btn_cancel").click(function(e){
+        e.preventDefault();
+        $(".login_background").css("display", "none");
+        /*clear the message warning in the login modal*/
+        $("#message").text("");
+    });
+    let redirectHome = () => {
+        window.location.href = "/";
+    }
+
+    
+    let checkUsername = () => {
+        let username = localStorage.getItem("username");
+        if(username !== null){
+            /*hide login and sign up*/
+            $(".buttons .btn_login").css("display", "none");
+            $(".buttons a").css("display", "none");
+            /*add username and logout button*/
+            let p = document.createElement("p");
+            p.textContent = username;
+            p.style.display ="inline-block";
+            p.style.backgroundColor = "red";
+            p.style.paddingBottom = 0;
+            $(".buttons").append(p);
+
+            let button = document.createElement("button");
+            button.className = "btn custom_signup my-2 my-sm-0"
+            button.textContent = "Logout";
+            button.style.display = "inline-block";
+            $(".buttons").append(button);
+        }
+    }
+    checkUsername();
+    
     /*trigger the input type file once 'Choose File' is clicked*/
     $("#browse_file").click(function(){
         $("input[type='file']").trigger('click');
@@ -15,11 +77,6 @@ $(document).ready(function(){
         $(".loader_background").css("display", "block");
         convertToMidi();
     })
-
-    /*
-    * Functions
-    */
-
     /*store image in the local storage*/
     let handleUploadedImage = (event) => {
 
