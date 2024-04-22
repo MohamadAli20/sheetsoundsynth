@@ -20,12 +20,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 /*use the routes*/
 // app.use("/", routes);
 // app.use("/login", routes);
-app.use("/register", routes);
+
 app.use("/music_library", routes);
 
 /*new*/
 app.use("/", routes);
 app.use("/playground", routes);
+app.use("/register", routes);
 
 /*serving static content*/
 app.use(express.static("assets"));

@@ -14,11 +14,7 @@ class Users{
         res.render("conversion");
     }
     register(req, res){
-        console.log("Goes here");
         res.render("register");
-    }
-    login(req, res){
-        res.render("login");
     }
     
     // music_library(req, res){
@@ -35,7 +31,7 @@ class Users{
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isValidEmail = regex.test(req.body.email);
 
-        if(req.body.firstname === "" || req.body.lastname === "" || req.body.email === "" || req.body.password === "" || req.body.confirm_pass === ""){
+        if(req.body.username === "" || req.body.email === "" || req.body.password === "" || req.body.confirm_pass === ""){
             result += "Fill in all the required information. ";
         }
         if(isValidEmail === false){
@@ -47,7 +43,7 @@ class Users{
         if(req.body.password.length < 8 || req.body.password.length > 20){
             result += "Password length should be between 8 and 20 characters. "
         }
-        if(req.body.firstname !== "" && req.body.lastname !== "" && isValidEmail === true && (req.body.password === req.body.confirm_pass)){
+        if(req.body.username !== "" && isValidEmail === true && (req.body.password === req.body.confirm_pass)){
             model.register_account(req.body, (found) => {
                 if(found){
                     result = "Email is already taken. ";
@@ -64,36 +60,37 @@ class Users{
         }
         
     }
-    authenticate(req, res){
+    login(req, res){
         let result = "";
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isValidEmail = regex.test(req.body.email);
 
-        if(req.body.email === "" || req.body.password === ""){
+        if(req.body.login_email === "" || req.body.login_password === ""){
             result += "Fill in all the required information. ";
         }
         if(isValidEmail === false){
             result += "Email is invalid ";
         }
-        if(req.body.email !== "" && req.body.password !== ""){
+        if(req.body.login_email !== "" && req.body.login_password !== ""){
             model.verify_account(req.body, (error, verified, information) => {
                 if(error){
                     console.error(error);
                     return;
                 }
                 if(verified){
+                    console.log(information);
                     req.session.userId = information.id;
-                    req.session.name = information.firstname + " " + information.lastname
-                    res.render("index", { username: req.session.name });
+                    req.session.name = information.username;
+                    res.send({name: req.session.name});
                 }
                 if(!verified){
                     result = "Login Failed";
-                    res.render("login", { result });
+                    res.send(result);
                 }
             });
         }
         else {
-            res.render("login", { result }); // Render result without verification
+            res.send(result); // Render result without verification
         }
     }
     logout(req, res){

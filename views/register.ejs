@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/register.css">
-    <title>Sign Up</title>
-
+    <script src="/js/register.js"></script>
 </head>
 <body>
     <nav class="navbar px-3 custom_nav">
@@ -22,41 +23,50 @@
             </ul>
         <!-- </div> -->
         <div class="">
-            <button class="btn">Login</button>
-            <a href="/register.html"><button class="btn custom_signup my-2 my-sm-0" type="submit">Sign up</button></a>
+            <button class="btn btn_login">Login</button>
+            <a href="/register_account"><button class="btn custom_signup my-2 my-sm-0" type="submit">Sign up</button></a>
         </div>
     </nav>
     <main class="container">
-        <form action="">
+        <header>
+            <% if(typeof result !== "undefined" && result === "success"){ %>
+            <p class="text-success">Successfully registered!</p>
+            <% }
+            else if(typeof result !== "undefined"){ %>
+            <p class="text-danger"><%= result %></p>
+            <% } %>
+        </header>
+        <form action="/create" method="post">
             <h3>Create an account</h3>
             <label>Email Address
-                <input class="" type="email">
+                <input class="" type="email" name="email">
             </label>
             <label>Username
-                <input type="text">
+                <input type="text" name="username">
             </label>
             <label>Password
-                <input type="password">
+                <input type="password" name="password">
             </label>
             <label>Verify Password
-                <input type="password">
+                <input type="password" name="confirm_pass">
             </label>
             <input type="submit" value="Sign up">
         </form>
         <p>Already have an account?<a href="">Login</a></p>
     </main>
     <!-- Login form modal -->
-    <div class="login_background">
-        <form class="login_form" action="">
+    <div class="login_background" >
+        <form class="login_form" method="post">
+            <p id="message"></p>
             <h3>Login to SheetSoundSynth</h3>
             <label>Email Address
-                <input class="" type="email">
+                <input class="" type="email" name="login_email">
             </label>
             <label>Password
-                <input type="password">
+                <input type="password" name="login_password">
             </label>
             <input type="submit" value="Log in">
-            <button class="btn btn-outline-secondary">Cancel</button>
+            <button class="btn btn-outline-secondary btn_cancel">Cancel</button>
             <p>Don't have an account?<a href="">Sign up</a></p>
         </form>
     </div>

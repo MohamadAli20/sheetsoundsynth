@@ -33,11 +33,10 @@ class Student{
                 const today = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
                 this.connection.query(
-                    'INSERT INTO users(firstname, lastname, email, hashed_password, created_at) VALUES(?,?,?,?,?)', 
+                    'INSERT INTO users(email, username, hashed_password, created_at) VALUES(?,?,?,?)', 
                     [
-                        account_info.firstname,
-                        account_info.lastname,
                         account_info.email,
+                        account_info.username,
                         passwordHash,
                         today
                     ],
@@ -59,7 +58,7 @@ class Student{
     verify_account(credentials, callback){
         this.connection.query(
             "SELECT * FROM users WHERE email = ?",
-            [ credentials.email ],
+            [ credentials.login_email ],
             (error, row) => {
                 let verified = false;
                 if(error){
@@ -68,12 +67,10 @@ class Student{
                     return;
                 }
                 if(row.length !== 0){
-                    verified = bcrypt.compareSync(credentials.password, row[0].hashed_password);
+                    verified = bcrypt.compareSync(credentials.login_password, row[0].hashed_password);
                     const information = {
                         id: row[0].id,
-                        firstname: row[0].firstname,
-                        lastname: row[0].lastname,
-                        email: row[0].email
+                        username: row[0].username
                     }
                     callback(null, verified, information);
                 }
