@@ -13,17 +13,19 @@
 <body>
     <nav class="navbar px-3 custom_nav">
         <a class="navbar-brand">SheetSoundSynth</a>
-        <ul class="navbar-nav border">
+        <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Saved Music</a>
+                <a class="nav-link" href="#" id="saved_music">Saved Music</a>
             </li>
         </ul>
-        <div class="buttons border">
-            <button class="btn btn_login">Login</button>
-            <a href="/register_account"><button class="btn custom_signup my-2 my-sm-0" type="submit">Sign up</button></a>
+        <div class="buttons">
+            <p></p>
+            <a href="" id="btn_logout"><button class="btn  custom_signup my-2 my-sm-0" >Logout</button></a>
+            <button class="btn btn_login">Login</button>    
+            <a href="/register_account" id="btn_signup"><button class="btn custom_signup my-2 my-sm-0">Sign up</button></a>
         </div>
     </nav>
     <main class="container">
@@ -47,6 +49,7 @@
     </footer>
     <div class="loader_background">
         <div class="loader"></div>
+        <p>Converting . . .</p>
     </div>
     <!-- Login form modal -->
     <div class="login_background" >
@@ -63,6 +66,15 @@
             <button class="btn btn-outline-secondary btn_cancel">Cancel</button>
             <p>Don't have an account?<a href="/register_account">Sign up</a></p>
         </form>
+    </div>
+    <!-- Logout form modal -->
+    <div class="logout_background" >
+        <div class="logout_modal">
+            <h3>Logout from SheetSoundSynth</h3>
+            <p>Are you sure you want to logout?</p>
+            <button class="btn" id="btn_yes_logout">Yes</button>
+            <button class="btn btn-outline-secondary btn_cancel_logout">Cancel</button>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

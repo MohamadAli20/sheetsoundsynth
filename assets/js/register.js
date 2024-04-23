@@ -32,10 +32,23 @@ $(document).ready(function(){
         /*clear the message warning in the login modal*/
         $("#message").text("");
     });
-
-    /*function*/
+    /*redireact to home*/
     let redirectHome = () => {
         window.location.href = "/";
     }
+    
+    /* For saving music */
+    $("#saved_music").click(function(){
+        let username = localStorage.getItem("username");
+        if(username === null){
+            $(".login_background").css("display", "block");
+        }
+        else{
+            console.log("login");
+            /*add ajax to get music*/
+        }
+    });
+
+    
 });
     

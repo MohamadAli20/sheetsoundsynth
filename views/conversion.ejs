@@ -21,12 +21,14 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Saved Music</a>
+                <a class="nav-link" href="#" id="saved_music">Saved Music</a>
             </li>
         </ul>
-        <div class="">
-            <button class="btn">Login</button>
-            <a href="/register.html"><button class="btn custom_signup my-2 my-sm-0" type="submit">Sign up</button></a>
+        <div class="buttons">
+            <p>MohamadAli</p>
+            <a href="" id="btn_logout"><button class="btn  custom_signup my-2 my-sm-0" >Logout</button></a>
+            <button class="btn btn_login">Login</button>
+            <a href="/register_account" id="btn_signup"><button class="btn custom_signup my-2 my-sm-0">Sign up</button></a>
         </div>
     </nav>
     <main class="">
@@ -46,25 +48,40 @@
         <select id="instruments">
         </select>
     </div>
-    <div class="loader_background">
-        <div class="loader"></div>
-    </div>
-    
-    <div class="login_background">
-        <form class="login_form" action="">
+    <!-- Login form modal -->
+    <div class="login_background" >
+        <form class="login_form" method="post">
+            <p id="message"></p>
             <h3>Login to SheetSoundSynth</h3>
             <label>Email Address
-                <input class="" type="email">
+                <input class="" type="email" name="login_email">
             </label>
             <label>Password
-                <input type="password">
+                <input type="password" name="login_password">
             </label>
             <input type="submit" value="Log in">
-            <button class="btn btn-outline-secondary">Cancel</button>
-            <p>Don't have an account?<a href="">Sign up</a></p>
+            <button class="btn btn-outline-secondary btn_cancel">Cancel</button>
+            <p>Don't have an account?<a href="/register_account">Sign up</a></p>
         </form>
     </div>
-    
+    <!-- Logout form modal -->
+    <div class="logout_background" >
+        <div class="logout_modal">
+            <h3>Logout from SheetSoundSynth</h3>
+            <p>Are you sure you want to logout?</p>
+            <button class="btn" id="btn_yes_logout">Yes</button>
+            <button class="btn btn-outline-secondary btn_cancel_logout">Cancel</button>
+        </div>
+    </div>
+    <!-- Save form modal -->
+    <div class="save_background" >
+        <div class="save_modal">
+            <h3>Save music to SheetSoundSynth</h3>
+            <p>Are you sure you want to save this music?</p>
+            <button class="btn" id="btn_save_music">Save</button>
+            <button class="btn btn-outline-secondary btn_cancel_music">Cancel</button>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

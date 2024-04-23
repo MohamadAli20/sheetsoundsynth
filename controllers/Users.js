@@ -4,9 +4,6 @@ const upload = multer({ dest: 'uploads/' })
 
 class Users{
     /*render view files*/
-    // index(req, res){
-    //     res.render("index", { username: req.session.name });                
-    // }
     index(req, res){
         res.render("index");
     }
@@ -16,15 +13,9 @@ class Users{
     register(req, res){
         res.render("register");
     }
-    
-    // music_library(req, res){
-    //     let data = this.retrieve_music(req, res);
-    //     console.log(req.session.userId);
-    //     console.log(req.session.name)
-    //     res.render("savemusic", { username: req.session.name });
-    // }
-
-    /*create and retrieve user account*/
+    music_list(req, res){
+        res.render("savemusic");
+    }
     create(req, res){
         let result = "";
         /*validate email*/
@@ -46,7 +37,7 @@ class Users{
         if(req.body.username !== "" && isValidEmail === true && (req.body.password === req.body.confirm_pass)){
             model.register_account(req.body, (found) => {
                 if(found){
-                    result = "Email is already taken. ";
+                    result = "Email is already taken.";
                 }
                 else{ /*not found*/
                     result = "success";
@@ -78,10 +69,8 @@ class Users{
                     return;
                 }
                 if(verified){
-                    console.log(information);
                     req.session.userId = information.id;
-                    req.session.name = information.username;
-                    res.send({name: req.session.name});
+                    res.send({id: information.id, name: information.username});
                 }
                 if(!verified){
                     result = "Login Failed";
@@ -93,18 +82,16 @@ class Users{
             res.send(result); // Render result without verification
         }
     }
-    logout(req, res){
-        console.log("Remove session data");
-        req.session.destroy(); /*destroy the session*/
-        res.redirect("login");
-    }
 
     /*save, retrieve and delete music*/
-    save_music(req, res){
+    add_music(req, res){
+        const id = req.body.id;
+        const pathImage = req.body.pathImage;
+        const pathMidi = req.body.pathMidi;
         let music_info = {
-            userId: req.session.userId,
-            imagePath: req.body.pathImage,
-            midiPath: req.body.pathMidi
+            userId: id,
+            imagePath: pathImage,
+            midiPath: pathMidi
         };
         model.insert_music(music_info, (error) => {
             if(error){
@@ -114,7 +101,8 @@ class Users{
         });
     }
     music_library(req, res){
-        let userId = req.session.userId;
+        const userId = req.body.userId;
+        console.log(userId);
         model.select_music(userId, (error, data) => {
             if(error){
                 console.error(error);

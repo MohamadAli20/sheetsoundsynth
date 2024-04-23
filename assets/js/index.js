@@ -1,7 +1,6 @@
 $(document).ready(function(){
     /* show and remove login modal*/
     $(".btn_login").click(function(){
-        console.log("jdfhdf");
         $(".login_background").css("display", "block");
     });
     $(".login_form").submit(function(e){
@@ -18,6 +17,7 @@ $(document).ready(function(){
                     $("#message").text(response);
                 }
                 else if(typeof response === "object"){
+                    localStorage.setItem("user_id", response.id);
                     localStorage.setItem("username", response.name);
                     redirectHome();            
                 }
@@ -37,29 +37,72 @@ $(document).ready(function(){
         window.location.href = "/";
     }
 
-    
+    /*check if user is logged in or not*/    
     let checkUsername = () => {
         let username = localStorage.getItem("username");
         if(username !== null){
             /*hide login and sign up*/
             $(".buttons .btn_login").css("display", "none");
-            $(".buttons a").css("display", "none");
-            /*add username and logout button*/
-            let p = document.createElement("p");
-            p.textContent = username;
-            p.style.display ="inline-block";
-            p.style.backgroundColor = "red";
-            p.style.paddingBottom = 0;
-            $(".buttons").append(p);
-
-            let button = document.createElement("button");
-            button.className = "btn custom_signup my-2 my-sm-0"
-            button.textContent = "Logout";
-            button.style.display = "inline-block";
-            $(".buttons").append(button);
+            $(".buttons #btn_signup").css("display", "none");
+            
+            /*show username and logout button*/
+            $(".buttons p").css("display", "inline-block");
+            $(".buttons p").text(username);
+            $(".buttons #btn_logout").css("display", "inline-block");
         }
     }
+    /*call to execute*/
     checkUsername();
+
+    /* Logout user */
+    $("#btn_logout").click(function(e){
+        e.preventDefault();
+        $(".logout_background").css("display", "block")
+    });
+    $("#btn_yes_logout").click(function(){
+        $(".logout_background").css("display", "none");
+        /*delete form local storage*/
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('username');
+        /*show login and sign up*/
+        $(".buttons .btn_login").css("display", "inline-block");
+        $(".buttons #btn_signup").css("display", "inline-block");
+        
+        /*hide username and logout button*/
+        $(".buttons p").css("display", "none");
+        $(".buttons #btn_logout").css("display", "none");
+    });
+    /*cancel logout*/
+    $(".btn_cancel_logout").click(function(){
+        $(".logout_background").css("display", "none");
+    })
+
+    /* Redirect to the Saved Music Page */
+    $("#saved_music").click(function(){
+        let username = localStorage.getItem("username");
+        if(username === null){
+            $(".login_background").css("display", "block");
+        }
+        else{
+            getMusic();            
+        }
+    });
+    let getMusic = () => {
+        const userId = localStorage.getItem("user_id");
+        $.ajax({
+            url: "/music_library",
+            type: "POST",
+            data: { userId: userId},
+            success: function(data){
+                let musicList = JSON.stringify(data);
+                localStorage.setItem('musicList', musicList);
+                window.location.href = "/save_music_page";
+            },
+            error: function(xhr, status, error){
+                console.error(error);
+            }
+        })   
+    }
     
     /*trigger the input type file once 'Choose File' is clicked*/
     $("#browse_file").click(function(){

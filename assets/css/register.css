@@ -6,8 +6,12 @@
     font-family: 'Proxima Nova', sans-serif;
     color: #43444E;
 }
+body{
+    height: 100vh;
+}
 .custom_nav{
     border-bottom: 1px solid #43444E;
+    margin: 0;
 }
     .custom_nav a{
         color: #43444E;
@@ -24,9 +28,25 @@
     .custom_nav ul li{
         display: inline-block;
     }
+    .custom_nav .buttons{
+        width: 500px;
+        text-align: right;
+    }
+        .custom_signup{
+            border-color: #f2725f;;
+            color: #f2725f;
+            display: inline-block;
+        }
+        .buttons button,
+        .buttons a{
+            display: inline-block;
+            margin-bottom: 0;
+        }
+    .custom_nav div
     .custom_signup{
         border-color: #f2725f;;
-        color: #f2725f;;
+        color: #f2725f;
+        margin: 0 20px
     }
 main{
     margin: 50px;
