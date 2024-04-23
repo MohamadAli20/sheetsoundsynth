@@ -4,6 +4,7 @@
 
 # Citation
 ```bibtex
+Oemer (Optical Music Notation)
 @software{yoyo_2023_8429346,<br>
   author       = {Yoyo and
                   Christian Liebhardt and
