@@ -1,6 +1,7 @@
 # SheetSoundSynth
 
 # Oemer (Optical Music Recognition)
+```bibtex
 @software{yoyo_2023_8429346,<br>
   author       = {Yoyo and
                   Christian Liebhardt and
